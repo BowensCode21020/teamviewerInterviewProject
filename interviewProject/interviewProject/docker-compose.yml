@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database service
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: interviewProject
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: Bracharyens
+
+  # Spring Boot application service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/interviewProject
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Bracharyens
